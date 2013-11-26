@@ -1,4 +1,4 @@
-# Production Level Laravel Development Environment
+# Bootstrap Laravel with Vagrant
 
 Get started developing a Laravel project with all the goodies and conveniences of
 modern development.
@@ -26,6 +26,9 @@ Start Up Vagrant
 Serve your App
 
 `grunt serve`
+
+# Credits
+Based on https://github.com/JeffreyWay/Vagrant-Setup
 
 Access your Site
 
