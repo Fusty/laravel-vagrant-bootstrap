@@ -75,6 +75,7 @@ if [ ! -f /vagrant/composer.json ]
     git clone https://github.com/laravel/laravel.git
     cd laravel
     composer install --prefer-dist
+    rm -rf .git
     tar pcf - .| (cd /vagrant/; tar pxf -)
     rm -rf laravel
 fi
