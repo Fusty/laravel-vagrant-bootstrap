@@ -74,10 +74,13 @@ if [ ! -f /vagrant/composer.json ]
   then
     git clone https://github.com/laravel/laravel.git
     cd laravel
-    composer install --prefer-dist
     rm -rf .git
     tar pcf - .| (cd /vagrant/; tar pxf -)
+    cd ..
     rm -rf laravel
+    cd /vagrant
+    composer install --prefer-dist
+    composer dump-autoload
 fi
 
 echo "--- Install node packages ---"
@@ -98,6 +101,11 @@ sed -i '$a /node_modules' .gitignore
 echo "--- Setting document root ---"
 sudo rm -rf /var/www
 sudo ln -fs /vagrant/public /var/www
+
+# Cleanup
+cd /vagrant
+rm -rf .git
+rm .gitattributes
 
 php serve&
 echo "--- All set to go! Would you like to play a game? ---"
