@@ -69,18 +69,23 @@ rvm use 1.9.3
 # Laravel stuff here, if you want
 
 echo "--- Make a new Laravel project ---"
-composer create-project laravel/laravel laravel
-cd /home/vagrant/laravel
-tar pcf - .| (cd /vagrant/; tar pxf -)
+cd /
+if [! -f /vagrant/composer.json ]
+  then
+    git clone https://github.com/laravel/laravel.git
+    composer install --prefer-dist
+fi
 
 echo "--- Install node packages ---"
 cd /vagrant
 sudo chown -R vagrant:vagrant /home/vagrant/tmp
+sudo chmod -R 755 app/storage
+
 npm install
 
 echo "--- Install bower packages ---"
 cd /vagrant
-bower install
+bower install --allow-root
 
 echo "--- Update .gitignore ---"
 sed -i '$a /bower_components' .gitignore
@@ -90,5 +95,5 @@ echo "--- Setting document root ---"
 sudo rm -rf /var/www
 sudo ln -fs /vagrant/public /var/www
 
-
+php serve&
 echo "--- All set to go! Would you like to play a game? ---"
