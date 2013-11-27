@@ -62,6 +62,7 @@ sudo mv composer.phar /usr/local/bin/composer
 
 # Install Ruby
 sudo \curl -L https://get.rvm.io | bash
+source /home/vagrant/.rvm/scripts/rvm
 rvm install 1.9.3
 rvm use 1.9.3
 
@@ -74,6 +75,7 @@ tar pcf - .| (cd /vagrant/; tar pxf -)
 
 echo "--- Install node packages ---"
 cd /vagrant
+sudo chown -R vagrant:vagrant /home/vagrant/tmp
 npm install
 
 echo "--- Install bower packages ---"
@@ -81,8 +83,8 @@ cd /vagrant
 bower install
 
 echo "--- Update .gitignore ---"
-#echo "/bower_components" >> .gitignore
-#echo "/node_modules" >> .gitignore
+sed -i '$a /bower_components' .gitignore
+sed -i '$a /node_modules' .gitignore
 
 echo "--- Setting document root ---"
 sudo rm -rf /var/www
