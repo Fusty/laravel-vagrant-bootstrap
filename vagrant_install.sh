@@ -69,11 +69,14 @@ rvm use 1.9.3
 # Laravel stuff here, if you want
 
 echo "--- Make a new Laravel project ---"
-cd /
-if [! -f /vagrant/composer.json ]
+
+if [ ! -f /vagrant/composer.json ]
   then
     git clone https://github.com/laravel/laravel.git
+    cd laravel
     composer install --prefer-dist
+    tar pcf - .| (cd /vagrant/; tar pxf -)
+    rm -rf laravel
 fi
 
 echo "--- Install node packages ---"
