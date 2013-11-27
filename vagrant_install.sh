@@ -17,7 +17,7 @@ sudo apt-get update
 
 echo "--- We want the bleeding edge of PHP, right master? ---"
 sudo add-apt-repository -y ppa:ondrej/php5
-sudo add-apt-repository ppa:chris-lea/node.js
+sudo add-apt-repository -y ppa:chris-lea/node.js
 
 echo "--- Updating packages list ---"
 sudo apt-get update
@@ -32,8 +32,8 @@ echo "--- Installing and configuring nodjs and npm
 sudo apt-get install -y nodejs
 
 echo "--- Installing and configuring grunt and bower globally ---"
-npm install -g grunt-cli
-npm install -g bower
+sudo npm install -g grunt-cli
+sudo npm install -g bower
 
 cat << EOF | sudo tee -a /etc/php5/mods-available/xdebug.ini
 xdebug.scream=1
@@ -44,16 +44,14 @@ EOF
 echo "--- Enabling mod-rewrite ---"
 sudo a2enmod rewrite
 
-echo "--- Setting document root ---"
-sudo rm -rf /var/www
-sudo ln -fs /vagrant/public /var/www
+
 
 
 echo "--- What developer codes without errors turned on? Not you, master. ---"
-sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
-sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/apache2/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/apache2/php.ini
 
-sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
 echo "--- Restarting Apache ---"
 sudo service apache2 restart
@@ -62,12 +60,17 @@ echo "--- Composer is the future. But you knew that, did you master? Nice job. -
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
+# Install Ruby
+sudo \curl -L https://get.rvm.io | bash
+rvm install 1.9.3
+rvm use 1.9.3
+
 # Laravel stuff here, if you want
 
 echo "--- Make a new Laravel project ---"
-cd /
 composer create-project laravel/laravel laravel
-cp -R laravel/* /vargrant
+cd /home/vagrant/laravel
+tar pcf - .| (cd /vagrant/; tar pxf -)
 
 echo "--- Install node packages ---"
 cd /vagrant
@@ -78,8 +81,12 @@ cd /vagrant
 bower install
 
 echo "--- Update .gitignore ---"
-echo "/bower_components" >> .gitignore
-echo "/node_modules" >> .gitignore
+#echo "/bower_components" >> .gitignore
+#echo "/node_modules" >> .gitignore
+
+echo "--- Setting document root ---"
+sudo rm -rf /var/www
+sudo ln -fs /vagrant/public /var/www
 
 
 echo "--- All set to go! Would you like to play a game? ---"
