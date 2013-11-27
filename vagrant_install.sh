@@ -23,23 +23,23 @@ echo "--- Updating packages list ---"
 sudo apt-get update
 
 echo "--- Installing PHP-specific packages ---"
-sudo apt-get install -y php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-mcrypt mysql-server-5.5 php5-mysql git-core
+sudo apt-get install -y php5 apache2 libapache2-mod-php5 ls -alphp5-curl php5-gd php5-mcrypt mysql-server-5.5 php5-mysql git-core
 
 echo "--- Installing and configuring Xdebug ---"
 sudo apt-get install -y php5-xdebug
 
-echo "--- Installing and configuring nodjs and npm
+echo "--- Installing and configuring nodjs and npm --- "
 sudo apt-get install -y nodejs
 
 echo "--- Installing and configuring grunt and bower globally ---"
 sudo npm install -g grunt-cli
 sudo npm install -g bower
 
-cat << EOF | sudo tee -a /etc/php5/mods-available/xdebug.ini
-xdebug.scream=1
-xdebug.cli_color=1
-xdebug.show_local_vars=1
-EOF
+
+sed -i '$a xdebug.scream=1' /etc/php5/mods-available/xdebug.ini
+sed -i '$a xdebug.cli_color=1' /etc/php5/mods-available/xdebug.ini
+sed -i '$a xdebug.show_local_vars=1' /etc/php5/mods-available/xdebug.ini
+
 
 echo "--- Enabling mod-rewrite ---"
 sudo a2enmod rewrite
