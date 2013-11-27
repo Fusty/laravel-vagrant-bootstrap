@@ -62,7 +62,7 @@ sudo mv composer.phar /usr/local/bin/composer
 
 # Install Ruby
 sudo \curl -L https://get.rvm.io | bash
-source /home/vagrant/.rvm/scripts/rvm
+source /etc/profile.d/rvm.sh
 rvm install 1.9.3
 rvm use 1.9.3
 
