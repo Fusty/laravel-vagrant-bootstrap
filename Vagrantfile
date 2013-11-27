@@ -13,6 +13,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provision :shell, :path => "vagrant_install.sh"
 
+    # Ubuntu fix for not using login shell: https://github.com/mitchellh/vagrant/issues/1673
+    config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
     # If true, then any SSH connections made will enable agent forwarding.
     # Default value: false
     # config.ssh.forward_agent = true
