@@ -1,41 +1,38 @@
 # Bootstrap Laravel with Vagrant
 
-Get started developing a Laravel project with all the goodies and conveniences of
-modern development.
-
-Will get you going with a fresh stable Laravel project, bower, grunt with live reload and asset
-management using SASS, bootstrap 3, Jeff's generators and all on Vagrant!
-
-The only dependencies are Vagrant and Git (I think...).
+I plan to use this as my starting point for new Laravel projects. Its a work in progress, but currently supports:
+ * Setting up a box with needed software (Apache, MySQL, PHP5 bleeding edge, xdebug, rvm(ruby) w/ 1.9.3, node/npm, grunt, bower, sass)
+ * Downloads a fresh copy of Laravel if a composer.json file does not already exist
+ * Deletes the .git folder for this project to set you up clean to start with a fresh git init
+ * Setups the .gitignore file to include the bower_components and node_modules
+ * Installs from the bower.json and package.json files (includes requirements to setup Live Reload, SASS, Uglify.. etc for production build with grunt --- Coming Soon)
 
 # Get Started
 
-Download and Install Vagrant
+### Download and Install Vagrant and VirtualBox `http://www.vagrantup.com/` and `https://www.virtualbox.org/`
 
-`http://www.vagrantup.com/`
+### Clone this project as your own
 
-Clone this project as your own
+    git clone https://github.com/michael-bender/laravel-vagrant-bootstrap.git MyProject
 
-`git clone git@github:michael-bender/laravel-vagrant-bootstrap.git MyProject`
-
-Start Up Vagrant
+### Start Up Vagrant
 
     cd MyProject
-    vagrant up // This may take a while the first time
+    vagrant up
 
-Serve your App
+## Now get to building!
 
-`grunt serve`
+Navigate to `http://localhost:8080` and 'You have arrived.'
 
 # Credits
-Based on https://github.com/JeffreyWay/Vagrant-Setup
-
-Access your Site
-
-`http://127.0.0.1:8000 in your favorite browser`
-
-Get to building!
+Enlightenment and inspiration from https://github.com/JeffreyWay/Vagrant-Setup
 
 ## Coming Soon
 
-`grunt deploy`
+* Live Reload by default
+* Remote xDebug support
+* Grunt configuration
+    * SASS compilation
+    * JS asset management similar to Yeoman
+    * Sprite/Image creation
+    * Deployment / Distribution Build
