@@ -75,7 +75,6 @@ if [ ! -f /vagrant/composer.json ]
     git clone https://github.com/laravel/laravel.git
     cd laravel
     rm -rf .git
-    rm Readme.md
     mkdir app/assets/css
     mkdir app/assets/js
     mkdir app/assets/images
@@ -114,7 +113,7 @@ sudo ln -fs /vagrant/public /var/www
 cd /vagrant
 rm -rf .git
 rm .gitattributes
+rm Readme.md
 
-php serve&
-grunt watch&
+grunt watch
 echo "--- All set to go! Would you like to play a game? ---"
