@@ -9,7 +9,10 @@ I plan to use this as my starting point for new Laravel projects. Its a work in 
 
 # Get Started
 
-### Download and Install Vagrant and VirtualBox `http://www.vagrantup.com/` and `https://www.virtualbox.org/`
+### Download and Install Vagrant and VirtualBox
+
+    http://www.vagrantup.com/
+    https://www.virtualbox.org/
 
 ### Clone this project as your own
 
