@@ -75,6 +75,12 @@ if [ ! -f /vagrant/composer.json ]
     git clone https://github.com/laravel/laravel.git
     cd laravel
     rm -rf .git
+    rm Readme.md
+    mkdir app/assets/css
+    mkdir app/assets/js
+    mkdir app/assets/images
+    mkdir app/assets/fonts
+    touch app/assets/css/main.scss
     tar pcf - .| (cd /vagrant/; tar pxf -)
     cd ..
     rm -rf laravel
@@ -88,6 +94,8 @@ cd /vagrant
 sudo chown -R vagrant:vagrant /home/vagrant/tmp
 sudo chmod -R 755 app/storage
 
+sudo gem install sass
+sudo gem install compass
 npm install
 
 echo "--- Install bower packages ---"
@@ -95,8 +103,8 @@ cd /vagrant
 bower install --allow-root
 
 echo "--- Update .gitignore ---"
-sed -i '$a /bower_components' .gitignore
-sed -i '$a /node_modules' .gitignore
+sed -i '$a bower_components' .gitignore
+sed -i '$a node_modules' .gitignore
 
 echo "--- Setting document root ---"
 sudo rm -rf /var/www
@@ -108,4 +116,5 @@ rm -rf .git
 rm .gitattributes
 
 php serve&
+grunt watch&
 echo "--- All set to go! Would you like to play a game? ---"
