@@ -75,6 +75,7 @@ if [ ! -f /vagrant/composer.json ]
     git clone https://github.com/laravel/laravel.git
     cd laravel
     rm -rf .git
+    mkdir app/assets
     mkdir app/assets/css
     mkdir app/assets/js
     mkdir app/assets/images
