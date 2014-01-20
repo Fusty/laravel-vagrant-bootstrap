@@ -85,6 +85,8 @@ if [ ! -f /vagrant/composer.json ]
     cd ..
     rm -rf laravel
     cd /vagrant
+    composer require mccool/laravel-auto-presenter:*
+    composer require --dev way/generators:*
     composer install --prefer-dist
     composer dump-autoload
 fi
