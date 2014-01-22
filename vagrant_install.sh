@@ -57,8 +57,8 @@ if [ ! -f /vagrant/composer.json ]
         rm /home/vagrant/master.zip
         cd /vagrant
         composer install --prefer-dist
-        composer require --prefer-dist mccool/laravel-auto-presenter:*
-        composer require --dev --prefer-dist way/generators:* phpunit/phpunit:3.7.27 mockery/mockery:0.9.*@dev
+        composer require $2
+        composer require --dev $3
         sed -i '$a /bower_components' .gitignore
         sed -i '$a /node_modules' .gitignore
         sed -i '$a /vendor' .gitignore
@@ -69,6 +69,12 @@ if [ ! -f /vagrant/composer.json ]
         sed -i '$a .env.php' .gitignore
         sed -i '$a .DS_Store' .gitignore
         sed -i '$a Thumbs.db' .gitignore
+
+        if [ ! -d "/vagrant/app/$1" ]
+            then
+                mkdir /vagrant/app/$1
+                sed -i 's/"autoload": {/"autoload": { "psr-4":{"$1\\\\":"app\/"},/' /vagrant/composer.json
+        fi
 fi
 
 if [ -f /vagrant/package.json ]

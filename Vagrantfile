@@ -20,6 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 "--prefer-dist mccool/laravel-auto-presenter:*", # Required Composer Dependencies
                 "--prefer-dist way/generators:* phpunit/phpunit:3.7.27 mockery/mockery:0.9.*@dev" # Required Dev Composer Dependencies
         ]
+    end
 
     config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777","fmode=666"]
 
