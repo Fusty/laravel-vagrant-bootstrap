@@ -39,13 +39,13 @@ gem install compass
 echo "--- Install project's packages ---"
 sudo chown -R vagrant:vagrant /home/vagrant/tmp
 
-if [ -f /vagrant/composer.json]
+if [ -f /vagrant/composer.json ]
     then
         cd /vagrant
         composer update
 fi
 
-if [ ! -f /vagrant/composer.json]
+if [ ! -f /vagrant/composer.json ]
     then
         echo "--- Create a new Laravel Project ---"
         cd /home/vagrant
