@@ -19,23 +19,26 @@ sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/
 sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/apache2/php.ini
 sudo sed -i "s/disable_functions = .*/disable_functions = /" /etc/php5/cli/php.ini
 
-echo "--- Installing and configuring grunt and bower globally ---"
-sudo npm install -g grunt-cli
+echo "--- Installing and configuring bower globally ---"
 sudo npm install -g bower
 
 echo "--- Install Composer ---"
-curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer
+if ! hash composer 2>/dev/null; then
+    curl -sS https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/local/bin/composer
+fi
 
 echo "--- Install Ruby through RVM ---"
-\curl -L https://get.rvm.io | bash
-source /home/vagrant/.rvm/scripts/rvm
-rvm install 1.9.3
-rvm use 1.9.3
+if ! hash rvm 2>/dev/null; then
+    \curl -L https://get.rvm.io | bash
+    source /home/vagrant/.rvm/scripts/rvm
+    rvm install 1.9.3
+    rvm use 1.9.3
 
-echo "--- Add project specific gems ---"
-gem install sass
-gem install compass
+    echo "--- Add project specific gems ---"
+    gem install sass
+    gem install compass
+fi
 
 echo "--- Install project's packages ---"
 sudo chown -R vagrant:vagrant /home/vagrant/tmp
@@ -77,13 +80,13 @@ if [ ! -f /vagrant/composer.lock ]
         fi
 fi
 
-if [ -f /vagrant/package.json ]
+if [ -f /vagrant/package.json && ! -d '/vagrant/node_modules' ]
     then
         cd /vagrant
         npm install
 fi
 
-if [ -f /vagrant/bower.json ]
+if [ -f /vagrant/bower.json && ! -d '/vagrant/bower_components' ]
     then
         cd /vagrant
         bower cache clean
