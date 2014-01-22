@@ -40,13 +40,13 @@ gem install compass
 echo "--- Install project's packages ---"
 sudo chown -R vagrant:vagrant /home/vagrant/tmp
 
-if [ -f /vagrant/composer.json ]
+if [ -f /vagrant/composer.lock ]
     then
         cd /vagrant
-        composer update
+        composer install
 fi
 
-if [ ! -f /vagrant/composer.json ]
+if [ ! -f /vagrant/composer.lock ]
     then
         echo "--- Create a new Laravel Project ---"
         cd /home/vagrant
@@ -73,7 +73,7 @@ if [ ! -f /vagrant/composer.json ]
         if [ ! -d "/vagrant/app/$1" ]
             then
                 mkdir /vagrant/app/$1
-                sed -i 's/"autoload": {/"autoload": { "psr-4":{"$1\\\\":"app\/"},/' /vagrant/composer.json
+                sed -i 's/"autoload": {/"autoload": { "psr-4":{"'$1'\\\\":"app\/"},/' /vagrant/composer.json
         fi
 fi
 
@@ -92,6 +92,8 @@ fi
 
 echo "--- Laravel specific settings ---"
 chmod -R 755 /vagrant/app/storage
+cd /vagrant
+php artisan optimize
 
 echo "--- Configure Apache ---"
 sudo a2enmod rewrite
