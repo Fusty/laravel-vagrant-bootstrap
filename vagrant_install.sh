@@ -77,17 +77,28 @@ if [ ! -f /vagrant/composer.lock ]
         fi
 fi
 
-if [ -f /vagrant/package.json && ! -d '/vagrant/node_modules' ]
+if [ -f "/vagrant/package.json" ] && [ ! -d "/vagrant/node_modules" ]
     then
-        sudo apt-get install nodejs
+        if ! hash npm 2>/dev/null; then
+            echo "--- Installing and configuring nodejs ---"
+            sudo apt-get install nodejs
+        fi
         cd /vagrant
         npm install
 fi
 
-if [ -f /vagrant/bower.json && ! -d '/vagrant/bower_components' ]
+if [ -f "/vagrant/bower.json" ] && [ ! -d "/vagrant/bower_components" ]
     then
-        echo "--- Installing and configuring bower globally ---"
-        sudo npm install -g bower
+        if ! hash npm 2>/dev/null; then
+            echo "--- Installing and configuring nodejs ---"
+            sudo apt-get install nodejs
+        fi
+
+        if ! hash bower 2>/dev/null; then
+            echo "--- Installing and configuring bower globally ---"
+            sudo npm install -g bower
+        fi
+
         cd /vagrant
         bower cache clean
         bower install
