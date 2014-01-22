@@ -1,14 +1,26 @@
-# Bootstrap Laravel with Vagrant
+# Bootstrap Laravel in Vagrant
 
-I plan to use this as my starting point for new Laravel projects. Its a work in progress, but currently supports:
- * Setting up a box with needed software (Apache, MySQL, PHP5 bleeding edge, xdebug, rvm(ruby) w/ 1.9.3, node/npm, grunt, bower, sass)
- * Downloads a fresh copy of Laravel if a composer.json file does not already exist
- * Deletes the .git folder for this project to set you up clean to start with a fresh git init
- * Setups the .gitignore file to include the bower_components and node_modules
- * Installs from the bower.json and package.json files (includes requirements to setup Live Reload, SASS, Uglify.. etc for production build with grunt --- Coming Soon)
+This project is a way to get up and running with a new Laravel project quickly using
+Vagrant as the server.
 
-# Get Started
+### Vagrant Box Includes
+- Cutting edge PHP and common modules along with MySQL
+- Composer
+- Ruby 1.9.3 via RVM (sass and compass gems included)
+- Git
+- Laravel installed from (https://github.com/laravel/laravel/archive/master.zip)
+- Nodejs install of package.json file exists
+- Bower install if bower.json file exists
 
+### Configurable Settings
+The Vagrantfile has a few command line args around line 19 that allow you to set:
+- Project Name (default: Acme): This will create a domain specific folder in your laravel /app directory and add it to composer.json as psr-4 autoloaded.
+- Composer Requirements: This will be appended to a call to composer after install to add additional packages you may commonly use.
+- Composer Dev Requirements: This will be appended to a call to composer --dev after install to add additional packages you may commonly use for development.
+- bower.json: Feel free to delete or edit this file which will be installed during provisioning.
+- package.json: Feel free to delete or edit this file which will be installed during provisioning.
+
+## Get Started
 ### Download and Install Vagrant and VirtualBox
 
     http://www.vagrantup.com/
