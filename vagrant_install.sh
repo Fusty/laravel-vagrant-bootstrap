@@ -9,7 +9,7 @@ sudo apt-get update
 echo "--- Installing PHP-specific packages ---"
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
-sudo apt-get install -y php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-mcrypt mysql-server-5.5 php5-mysql php5-readline git-core php5-xdebug nodejs unzip
+sudo apt-get install -y php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-mcrypt mysql-server-5.5 php5-mysql php5-readline git-core php5-xdebug unzip
 
 echo "--- Configure PHP and xDebug ---"
 sudo sed -i '$a xdebug.scream=1' /etc/php5/mods-available/xdebug.ini
@@ -18,9 +18,6 @@ sudo sed -i '$a xdebug.show_local_vars=1' /etc/php5/mods-available/xdebug.ini
 sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
 sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/apache2/php.ini
 sudo sed -i "s/disable_functions = .*/disable_functions = /" /etc/php5/cli/php.ini
-
-echo "--- Installing and configuring bower globally ---"
-sudo npm install -g bower
 
 echo "--- Install Composer ---"
 if ! hash composer 2>/dev/null; then
@@ -82,12 +79,15 @@ fi
 
 if [ -f /vagrant/package.json && ! -d '/vagrant/node_modules' ]
     then
+        sudo apt-get install nodejs
         cd /vagrant
         npm install
 fi
 
 if [ -f /vagrant/bower.json && ! -d '/vagrant/bower_components' ]
     then
+        echo "--- Installing and configuring bower globally ---"
+        sudo npm install -g bower
         cd /vagrant
         bower cache clean
         bower install
