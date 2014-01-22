@@ -9,7 +9,7 @@ sudo apt-get update
 echo "--- Installing PHP-specific packages ---"
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
-sudo apt-get install -y php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-mcrypt mysql-server-5.5 php5-mysql git-core php5-xdebug nodejs
+sudo apt-get install -y php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-mcrypt mysql-server-5.5 php5-mysql git-core php5-xdebug nodejs unzip
 
 echo "--- Configure PHP and xDebug ---"
 sudo sed -i '$a xdebug.scream=1' /etc/php5/mods-available/xdebug.ini
@@ -38,12 +38,36 @@ gem install compass
 
 echo "--- Install project's packages ---"
 sudo chown -R vagrant:vagrant /home/vagrant/tmp
-cd /vagrant
 
-if [ -f /vagrant/composer.json ]
+if [ -f /vagrant/composer.json]
     then
         cd /vagrant
         composer update
+fi
+
+if [ ! -f /vagrant/composer.json]
+    then
+        echo "--- Create a new Laravel Project ---"
+        cd /home/vagrant
+        wget https://github.com/laravel/laravel/archive/master.zip
+        unzip master.zip
+        cp -r /home/vagrant/laravel-master/* /vagrant/
+        rm -rf /home/vagrant/laravel-master
+        rm /home/vagrant/master.zip
+        cd /vagrant
+        composer install --prefer-dist
+        composer require --prefer-dist mccool/laravel-auto-presenter:*
+        composer require --dev --prefer-dist way/generators:* phpunit/phpunit:3.7.27 mockery/mockery:0.9.*@dev
+        sed -i '$a /bower_components' .gitignore
+        sed -i '$a /node_modules' .gitignore
+        sed -i '$a /vendor' .gitignore
+        sed -i '$a .idea' .gitignore
+        sed -i '$a .vagrant' .gitignore
+        sed -i '$a composer.phar' .gitignore
+        sed -i '$a .env.local.php' .gitignore
+        sed -i '$a .env.php' .gitignore
+        sed -i '$a .DS_Store' .gitignore
+        sed -i '$a Thumbs.db' .gitignore
 fi
 
 if [ -f /vagrant/package.json ]
