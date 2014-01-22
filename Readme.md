@@ -35,18 +35,24 @@ The Vagrantfile has a few command line args around line 19 that allow you to set
     cd MyProject
     vagrant up
 
-## Now get to building!
+### Now get to building!
 
 Navigate to `http://localhost:8080` and 'You have arrived.'
 
-# Credits
+## Git Clean up
+
+You'll probably want to delete the .git directory and re-initialize the project as your own with `git init`.
+You should be safe with the provided .gitignore to just start building and committing. Team member should be able to clone
+your project from here on out and still run vagrant up to get the same results for developing on your project.
+
+## Credits
 Enlightenment and inspiration from https://github.com/JeffreyWay/Vagrant-Setup
 
 ## Coming Soon
 
 * Live Reload by default
 * Remote xDebug support
-* Grunt configuration
+* Gulp build process for
     * SASS compilation
     * JS asset management similar to Yeoman
     * Sprite/Image creation

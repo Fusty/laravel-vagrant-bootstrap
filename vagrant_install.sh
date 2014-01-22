@@ -81,7 +81,7 @@ if [ -f "/vagrant/package.json" ] && [ ! -d "/vagrant/node_modules" ]
     then
         if ! hash npm 2>/dev/null; then
             echo "--- Installing and configuring nodejs ---"
-            sudo apt-get install nodejs
+            sudo apt-get install -y nodejs
         fi
         cd /vagrant
         npm install
@@ -91,7 +91,7 @@ if [ -f "/vagrant/bower.json" ] && [ ! -d "/vagrant/bower_components" ]
     then
         if ! hash npm 2>/dev/null; then
             echo "--- Installing and configuring nodejs ---"
-            sudo apt-get install nodejs
+            sudo apt-get install -y nodejs
         fi
 
         if ! hash bower 2>/dev/null; then
