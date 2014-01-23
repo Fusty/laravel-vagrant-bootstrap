@@ -10,8 +10,9 @@ Vagrant as the server.
 - Git
 - Laravel installed from master (https://github.com/laravel/laravel/archive/master.zip)
 - Laravel local configuration and default database created based on project name
-- Nodejs install of package.json file exists
-- Bower install if bower.json file exists
+- Nodejs install of package.json file exists (Included: gulp and gulp plugins)
+- Bower install if bower.json file exists (Included: AngularJS, Bootstrap, Underscore, JSON3)
+- Gulp if gulpfile.js exists (Included: sass complication with live reload)
 
 ### Configurable Settings
 The Vagrantfile has a few command line args around line 19 that allow you to set:
@@ -40,7 +41,18 @@ The Vagrantfile has a few command line args around line 19 that allow you to set
 
 Navigate to `http://localhost:8080` and 'You have arrived.'
 
+Create a file 'style.scss' and import into main.scss at the bottom and it should automatically
+be compiled and put into public/css and should live reload with the google chrome extension for live reload.
+
 ## Basic Usage
+
+### Installed Tools
+
+If you ssh into the vagrant box you can use
+
+#### Gulp
+
+`$gulp` runs live reload with sass file watcher in the app/assets/sass folder
 
 ### MySQL
 

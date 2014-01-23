@@ -129,8 +129,8 @@ fi
 if [ -f "/vagrant/main.scss" ]
     then
         mkdir /vagrant/app/assets
-        mkdir /vagrant/app/sass
-        mv /vagrant/main.scss /vagrant/app/sass/
+        mkdir /vagrant/app/assets/sass
+        mv /vagrant/main.scss /vagrant/app/assets/sass/
 fi
 
 echo "--- Laravel specific settings ---"
@@ -145,7 +145,7 @@ sudo rm -rf /var/www
 sudo ln -fs /vagrant/public /var/www
 sudo service apache2 restart
 
-if [ -f "/vagrant/gulpfile.js ]
+if [ -f "/vagrant/gulpfile.js" ]
     cd /vagrant
     gulp
 fi
