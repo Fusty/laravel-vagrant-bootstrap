@@ -38,6 +38,7 @@ if ! hash rvm 2>/dev/null; then
 fi
 
 echo "--- Install project's packages ---"
+mkdir /home/vagrant/tmp
 sudo chown -R vagrant:vagrant /home/vagrant/tmp
 
 if [ -f /vagrant/composer.lock ]
@@ -112,6 +113,26 @@ if [ -f "/vagrant/bower.json" ] && [ ! -d "/vagrant/bower_components" ]
         bower install
 fi
 
+if [ -f "/vagrant/gulpfile.js" ]
+    then
+        if ! hash npm 2>/dev/null; then
+            echo "--- Installing and configuring nodejs ---"
+            sudo apt-get install -y nodejs
+        fi
+
+        if ! hash gulp 2>/dev/null; then
+            echo "--- Installing and configuring gulp globally ---"
+            sudo npm install -g gulp
+        fi
+fi
+
+if [ -f "/vagrant/main.scss" ]
+    then
+        mkdir /vagrant/app/assets
+        mkdir /vagrant/app/sass
+        mv /vagrant/main.scss /vagrant/app/sass/
+fi
+
 echo "--- Laravel specific settings ---"
 chmod -R 755 /vagrant/app/storage
 cd /vagrant
@@ -123,3 +144,8 @@ sudo sed -i "s/AllowOverride None/AllowOverride All/" /etc/apache2/apache2.conf
 sudo rm -rf /var/www
 sudo ln -fs /vagrant/public /var/www
 sudo service apache2 restart
+
+if [ -f "/vagrant/gulpfile.js ]
+    cd /vagrant
+    gulp
+fi
