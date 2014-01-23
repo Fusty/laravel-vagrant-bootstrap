@@ -145,7 +145,7 @@ sudo rm -rf /var/www
 sudo ln -fs /vagrant/public /var/www
 sudo service apache2 restart
 
-if [ -f "/vagrant/gulpfile.js" ]
+if [ -f "/vagrant/gulpfile.js" ]; then
     cd /vagrant
     gulp
 fi
