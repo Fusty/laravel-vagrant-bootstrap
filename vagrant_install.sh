@@ -75,6 +75,11 @@ if [ ! -f /vagrant/composer.lock ]
                 mkdir /vagrant/app/$1
                 sed -i 's/"autoload": {/"autoload": { "psr-4":{"'$1'\\\\":"app\/"},/' /vagrant/composer.json
         fi
+
+        echo "--- Setup develop configuration and database ---"
+        mysql -uroot -proot -e "CREATE DATABASE ${1,,}"
+        mkdir /vagrant/app/config/development
+
 fi
 
 if [ -f "/vagrant/package.json" ] && [ ! -d "/vagrant/node_modules" ]

@@ -8,7 +8,7 @@ Vagrant as the server.
 - Composer
 - Ruby 1.9.3 via RVM (sass and compass gems included)
 - Git
-- Laravel installed from (https://github.com/laravel/laravel/archive/master.zip)
+- Laravel installed from master (https://github.com/laravel/laravel/archive/master.zip)
 - Nodejs install of package.json file exists
 - Bower install if bower.json file exists
 
