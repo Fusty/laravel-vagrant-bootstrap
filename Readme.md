@@ -15,7 +15,7 @@ Vagrant as the server.
 
 ### Configurable Settings
 The Vagrantfile has a few command line args around line 19 that allow you to set:
-- Project Name (default: Acme): This will create a domain specific folder in your laravel /app directory and add it to composer.json as psr-4 autoloaded.
+- Project Name (default: Acme): This must be a single word with a captial first letter. This will create a domain specific folder in your laravel /app directory and add it to composer.json as psr-4 autoloaded.
 - Composer Requirements: This will be appended to a call to composer after install to add additional packages you may commonly use.
 - Composer Dev Requirements: This will be appended to a call to composer --dev after install to add additional packages you may commonly use for development.
 - bower.json: Feel free to delete or edit this file which will be installed during provisioning.
