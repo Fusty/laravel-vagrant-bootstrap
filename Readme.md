@@ -33,6 +33,8 @@ The Vagrantfile has a few command line args around line 19 that allow you to set
 
 ### Start Up Vagrant
 
+The first time you run this it make take 10 mins or so depending on how the internet is feeling that day.
+
     cd MyProject
     vagrant up
 
