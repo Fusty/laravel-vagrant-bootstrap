@@ -9,6 +9,7 @@ Vagrant as the server.
 - Ruby 1.9.3 via RVM (sass and compass gems included)
 - Git
 - Laravel installed from master (https://github.com/laravel/laravel/archive/master.zip)
+- Laravel local configuration and default database created based on project name
 - Nodejs install of package.json file exists
 - Bower install if bower.json file exists
 
@@ -38,6 +39,34 @@ The Vagrantfile has a few command line args around line 19 that allow you to set
 ### Now get to building!
 
 Navigate to `http://localhost:8080` and 'You have arrived.'
+
+## Basic Usage
+
+### MySQL
+
+    username: root
+    password: root
+
+    Connect via SSH
+    Name: localhost
+    MySQL Host: 127.0.0.1
+    Username: root
+    Password: root
+    Database: [INSERT YOUR PROJECT NAME IN LOWERCASE, DEFAULT is acme]
+    Port: 3306
+    SSH Host: 127.0.0.1
+    SSH User: vagrant
+    SSH Key: ~/.vagrant.d/insecure_private_key
+    SSH Port: 2222
+
+### SSH
+
+You can ssh into the development server using `vagrant ssh`. From here navigate to `/vagrant`
+which is a shared directory between the VM and your host machine so you can open and edit these
+files on your computer but they will update in the VM also.
+
+You will run your `composer`, `php artisan`, `npm`, `bower`, etc... commands from the server after you have
+`vagrant ssh` into `/vagrant` directory.
 
 ## Git Clean up
 
